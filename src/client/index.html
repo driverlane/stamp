@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app" ng-controller="AppController as app" ng-cloak=" ">
+
+<head>
+    <title>stamp</title>
+    <link rel="stylesheet" href="../../node_modules/angular-material/angular-material.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <body>
+
+        <div layout="column" layout-align="center center">
+            <md-toolbar class="stp-main-toolbar">
+                <div class="md-toolbar-tools">
+                    <md-menu class="stp-main-toolbar-menu">
+                        <md-button class="md-icon-button" aria-label="Menu" ng-click="$mdOpenMenu($event)">
+                            <md-icon md-svg-icon="img/menu.svg"></md-icon>
+                        </md-button>
+                        <md-menu-content width="4">
+                            <md-menu-item>
+                                <md-button ng-click="app.showSettings($event)">
+                                    <md-icon md-menu-align-target></md-icon>
+                                    Settings
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="app.showHelp($event)">
+                                    <md-icon md-menu-align-target></md-icon>
+                                    Help
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="app.quitApp($event)">
+                                    <md-icon md-menu-align-target md-svg-icon="img/clear.svg"></md-icon>
+                                    Exit
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                    <h2>stamp</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" aria-label="Help">
+                        <md-icon md-svg-icon="img/help.svg" ng-click="app.showHelp($event)"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+
+            <md-card class="stp-card">
+                <md-card-content>
+                    <md-input-container class="stp-test-select">
+                        <label>Choose your test</label>
+                        <md-select ng-model="app.test" ng-change="app.setTestIndex()">
+                            <md-option ng-value="test.name" ng-repeat="test in app.config.tests track by test.name">
+                                <span ng-bind="test.name"></span>
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-button class="md-raised md-button" ng-click="app.runTest(app.test)">Run test</md-button>
+                </md-card-content>
+            </md-card>
+            <md-card class="stp-card" ng-if="app.config.tests[app.testIndex].testVariables.length">
+                <md-card-content>
+                    <md-input-container class="stp-test-select">
+                        <label>Choose your environment</label>
+                        <md-select ng-model="app.config.tests[app.testIndex].selectedVariables" ng-change="app.writeConfig()">
+                            <md-option value="{{ $index }}" ng-repeat="environment in app.config.tests[app.testIndex].testVariables track by environment.name">
+                                <span ng-bind="environment.name"></span>
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-button class="md-raised md-button" ng-click="app.showVariables(app.test)">Edit variables</md-button>
+                </md-card-content>
+            </md-card>
+            <md-card class="stp-card">
+                <md-card-content>
+                    <md-tabs md-selected="app.selectedTab" md-dynamic-height md-border-bottom>
+                        <md-tab label="Recent tests">
+                            <md-content layout="row" layout-align="end center">
+                                <md-switch class="md-warn" ng-model="app.config.client.showFailedResults" ng-change="app.writeConfig()" aria-label="Show results">
+                                    <span ng-if="!app.config.client.showFailedResults">Show all results</span>
+                                    <span ng-if="app.config.client.showFailedResults">Show failed results</span>
+                                </md-switch>
+                            </md-content>
+                            <md-list>
+                                <div ng-repeat="result in app.cache track by result.started" ng-include="app.resultsTemplate">
+                                </div>
+                            </md-list>
+                        </md-tab>
+                        <md-tab label="Saved tests">
+                            <md-content layout="row">
+                                <md-button class="md-raised md-button" ng-click="app.exportSavedTests()">Export</md-button>
+                                <span flex></span>
+                                <md-switch class="md-warn" ng-model="app.config.client.showFailedResults" ng-change="app.writeConfig()" aria-label="Show results">
+                                    <span ng-if="!app.config.client.showFailedResults">Show all results</span>
+                                    <span ng-if="app.config.client.showFailedResults">Show failed results</span>
+                                </md-switch>
+                            </md-content>
+                            <md-list>
+                                <div ng-repeat="result in app.history track by result._id" ng-include="app.resultsTemplate">
+                                </div>
+                            </md-list>
+                        </md-tab>
+                    </md-tabs>
+                </md-card-content>
+            </md-card>
+        </div>
+
+        <script src="../../node_modules/pouchdb/dist/pouchdb.js"></script>
+        <script src="core.js"></script>
+        <!-- build:livereload -->
+        <!-- endbuild -->
+    </body>
+
+</html>

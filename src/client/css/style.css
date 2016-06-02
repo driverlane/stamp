@@ -1,0 +1,97 @@
+.stp-result-main {
+    background: #f9f9f9;
+}
+
+.stp-result-pass {
+    color: #4CAF50;
+    padding-right: 10px;
+}
+
+.stp-result-fail {
+    color: rgb(255,87,34);
+    padding-right: 10px;
+}
+
+.stp-result-pass svg, .stp-result-fail svg {
+    width: 40px;
+    height: 40px;
+    fill: inherit;
+    padding-left: 10px;
+}
+
+.stp-result-buttons {
+    margin-top: 12px;
+    color: #757575;
+}
+
+.stp-result-buttons svg {
+    fill: inherit;
+}
+
+.stp-card {
+    width: 90%;
+}
+
+.stp-test-select {
+    width: 400px;
+}
+
+.stp-status-spinner {
+    float: left;
+    margin-top: -5px;
+}
+
+.stp-main-toolbar {
+    color: #fff;
+}
+
+.stp-main-toolbar svg {
+    fill: inherit;
+}
+
+.stp-main-toolbar-menu {
+    margin: inherit !important;
+}
+
+.stp-stack-trace {
+    width: 80%;
+}
+
+.stp-status {
+    width: 60%;
+    height: 200px;
+}
+
+.stp-stack-trace-detail {
+    white-space: pre;
+}
+
+.stp-settings {
+    width: 90%;
+    height: 90%;
+}
+
+.stp-settings-tab-content {
+    margin-left: 15px;
+}
+
+.stp-settings-tab-content button {
+    height: 0.2em;
+}
+
+.stp-settings-spacer {
+    margin-top: 10px;
+}
+
+.stp-cancel-test {
+    float: right;
+}
+
+.stp-input-panel {
+    background-color: rgba(224, 224, 224, 0.96);
+    padding-top: 20px;
+}
+
+.stp-input-panel button {
+    height: 0.2em;
+}

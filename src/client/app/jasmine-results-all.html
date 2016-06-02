@@ -1,0 +1,46 @@
+<md-list-item class="md-2-line">
+    <md-icon md-svg-src="img/test-fail.svg" ng-if="suite.failedExpectations.length > 0" class="stp-result-fail" aria-label="Passed"></md-icon>
+    <md-icon md-svg-src="img/test-pass.svg" ng-if="suite.failedExpectations.length == 0" class="stp-result-pass" aria-label="Passed"></md-icon>
+    <div class="md-list-item-text" layout="column">
+        <p><strong>{{ suite.description }}</strong></p>
+    </div>
+    <div class="stp-result-buttons">
+        <md-button class="md-icon-button" aria-label="Expand" aria-label="{{ suite.show && 'Expand row' || 'Collapse row' }}" ng-click="suite.show = !suite.show">
+            <div ng-if="suite.show">
+                <md-tooltip md-direction="bottom">
+                    Expand row
+                </md-tooltip>
+                <md-icon md-svg-icon="img/row-expand.svg"></md-icon>
+            </div>
+            <div ng-if="!suite.show">
+                <md-tooltip md-direction="bottom">
+                    Collapse row
+                </md-tooltip>
+                <md-icon md-svg-icon="img/row-collapse.svg"></md-icon>
+            </div>
+        </md-button>
+    </div>
+    <md-divider></md-divider>
+</md-list-item>
+<div ng-repeat="test in suite.specs" ng-show="!suite.show">
+    <md-list-item class="md-2-line">
+        <md-icon md-svg-src="img/test-fail.svg" ng-if="test.failedExpectations.length > 0" class="stp-result-fail" aria-label="Passed"></md-icon>
+        <md-icon md-svg-src="img/test-pass.svg" ng-if="test.failedExpectations.length == 0" class="stp-result-pass" aria-label="Passed"></md-icon>
+        <div class="md-list-item-text" layout="column">
+            <p class="md-body-1">It {{ test.description }}</p>
+            <p class="md-body-1" ng-if="test.failedExpectations.length > 0">{{ test.failedExpectations[0].message }}</p>
+            <p class="md-body-1">Completed in {{ test.totalSeconds }} seconds.</p>
+        </div>
+        <div class="stp-result-buttons" ng-if="test.failedExpectations.length > 0">
+            <md-button class="md-icon-button" aria-label="Show stack trace" ng-click="app.showStackTrace($event, test.failedExpectations[0].stack)">
+                <md-tooltip md-direction="bottom">
+                    Show stack trace
+                </md-tooltip>
+                <md-icon md-svg-icon="img/details.svg"></md-icon>
+            </md-button>
+        </div>
+        <md-divider></md-divider>
+    </md-list-item>
+</div>
+<div ng-repeat="suite in suite.suites" ng-include="app.allResultsTemplate">
+</div>

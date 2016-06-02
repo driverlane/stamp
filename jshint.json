@@ -1,0 +1,31 @@
+{
+    "node": true,
+    "browser": true,
+    
+    "bitwise": true,
+    "curly": true,
+    "eqeqeq": true,
+    "forin": true,
+    "latedef": "nofunc",
+    "noarg": true,
+    "nonbsp": true,
+    "nonew": true,
+    "plusplus": false,
+    "undef": true,
+    "unused": false,
+    
+    "eqnull": true,
+    
+    "esversion": 6,
+    
+    "globals": {
+        "angular": false,
+        "describe": false,
+        "beforeEach": false,
+        "afterEach": false,
+        "it": false,
+        "expect": false,
+        "PouchDB": false,
+        "emit": false
+    }
+}

@@ -1,0 +1,47 @@
+<md-list-item class="md-2-line stp-result-main">
+    <md-icon md-svg-src="img/test-fail.svg" ng-if="result.passedSpecs !== result.totalSpecsDefined" class="stp-result-fail"
+    aria-label="Passed"></md-icon>
+    <md-icon md-svg-src="img/test-pass.svg" ng-if="result.passedSpecs === result.totalSpecsDefined" class="stp-result-pass"
+    aria-label="Passed"></md-icon>
+    <div class="md-list-item-text" layout="column">
+        <p class="md-body-1"><strong>{{ result.testName }}</strong><span ng-if="result.environment"> - {{ result.environment }}</span></p>
+        <p class="md-body-1"> {{ result.passedSpecs }} of {{ result.totalSpecsDefined }} tests passed in {{ result.totalSeconds }} seconds. {{
+            result.completedLocale }}
+        </p>
+    </div>
+    <div class="stp-result-buttons">
+        <md-button class="md-icon-button" ng-if="!result._id" aria-label="Save test" ng-click="app.saveRow($index)">
+            <md-tooltip md-direction="bottom">
+                Save test
+            </md-tooltip>
+            <md-icon md-svg-icon="img/save.svg"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="Delete test" ng-click="app.clearRow($index, result)">
+            <md-tooltip md-direction="bottom">
+                Delete test
+            </md-tooltip>
+            <md-icon md-svg-icon="img/clear.svg"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" ng-click="result.show = !result.show" aria-label="{{ !result.show && 'Expand row' || 'Collapse row' }}">
+            <div ng-if="!result.show">
+                <md-tooltip md-direction="bottom">
+                    Expand row
+                </md-tooltip>
+                <md-icon md-svg-icon="img/row-expand.svg"></md-icon>
+            </div>
+            <div ng-if="result.show">
+                <md-tooltip md-direction="bottom">
+                    Collapse row
+                </md-tooltip>
+                <md-icon md-svg-icon="img/row-collapse.svg"></md-icon>
+            </div>
+        </md-button>
+    </div>
+    <md-divider></md-divider>
+</md-list-item>
+<div ng-show="result.show">
+    <div ng-repeat="fe in result.failedExpectations" ng-if="app.config.client.showFailedResults" ng-include="app.failedResultsTemplate">
+    </div>
+    <div ng-repeat="suite in result.suites" ng-if="!app.config.client.showFailedResults" ng-include="app.allResultsTemplate">
+    </div>
+</div>

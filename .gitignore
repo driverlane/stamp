@@ -1,0 +1,73 @@
+# project specific
+###################
+stage
+cache
+package
+dist
+
+# Visual Studio
+###################
+*.user
+*.gpState
+*.suo
+bin
+obj
+/packages
+
+# Node, NPM & Bower
+###################
+node_modules
+/modular/client/build
+/modular/build
+bower_components
+**/test/coverage
+/reports
+npm-debug.log
+
+# VSCode
+###################
+/.vscode
+/typings
+tsd.json
+
+# Web Storm
+###################
+.idea
+
+# Compiled source
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+report/
+
+# Logs and databases
+######################
+logs/*
+*.log
+*.sql
+*.sqlite
+# *.sdf
+*.mdf
+*.ldf
+/data
+*.lock
+*.0
+*.1
+*.ns
+journal
+tmp
+
+# OS cruft
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Exceptions
+######################
+!.gitkeep

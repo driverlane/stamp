@@ -1,0 +1,24 @@
+<md-dialog class="stp-status" aria-label="Test Status" ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Test status</h2>
+            <span flex></span>
+            <md-button class="md-icon-button stp-main-toolbar" ng-click="app.cancelTesting()" aria-label="Cancel testing" ng-if="app.testRunning">
+                <md-icon md-svg-src="img/clear.svg"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <md-content flex="100" layout-padding>
+            <div class="stp-fade">
+                <span ng-bind="app.status"></span>
+                <div class="stp-status-spinner" ng-if="app.testRunning">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="30px"></md-progress-circular>
+                </div>
+            </div>
+        </md-content>
+        <md-content flex="100" layout-padding>
+            <md-button class="md-raised md-button md-warn stp-cancel-test" ng-click="app.cancelTesting()" aria-label="Cancel testing" ng-if="app.testRunning">Cancel Test</md-button>
+        </md-content>
+    </md-dialog-content>
+</md-dialog>

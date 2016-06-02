@@ -1,0 +1,169 @@
+{
+    "logging": {
+        "level": "error",
+        "file": false,
+        "levels": [
+            {
+                "name": "Errors",
+                "value": "error",
+                "description": "Logs only serious application errors"
+            },
+            {
+                "name": "Warnings",
+                "value": "warn",
+                "description": "Logs application warnings"
+            },
+            {
+                "name": "Information",
+                "value": "info",
+                "description": "Logs application status information"
+            },
+            {
+                "name": "Debug",
+                "value": "debug",
+                "description": "Logs all application information"
+            }
+        ]
+    },
+    "client": {
+        "showFailedResults": true,
+        "helpUrl": "http://markfarrall.github.io/stamp/",
+        "ieConfigUrl": "https://github.com/SeleniumHQ/selenium/wiki/InternetExplorerDriver#required-configuration",
+        "exportOptions": {
+            "fields": [
+                "testName",
+                "browser",
+                "environment",
+                "testStarted",
+                "testCompleted",
+                "testTotalSeconds",
+                "suiteDescription",
+                "suiteStarted",
+                "suiteCompleted",
+                "specDescription",
+                "specStarted",
+                "specCompleted",
+                "specStatus",
+                "specTotalSeconds"
+            ],
+            "fieldNames": [
+                "Test Name",
+                "Browser",
+                "Environment",
+                "Test Started",
+                "Test Completed",
+                "Test Total Seconds",
+                "Suite Name",
+                "Suite Started",
+                "Suite Completed",
+                "Spec Name",
+                "Spec Started",
+                "Spec Completed",
+                "Spec Status",
+                "Spec Total Seconds"
+            ]
+        }
+    },
+    "runner": {
+        "timeout": 60000,
+        "browsers": [
+            {
+                "name": "Chrome",
+                "selected": true
+            },
+            {
+                "name": "Firefox",
+                "selected": false
+            },
+            {
+                "name": "Internet Explorer",
+                "selected": false,
+                "capabilities": {
+                    "ignoreZoomSetting": false,
+                    "introduceFlakinessByIgnoringProtectedModeSettings": false
+                }
+            }
+        ]
+    },
+    "tests": [
+        {
+            "name": "CS 10.5 Basics Check",
+            "fileName": "cs-basic-10.5.spec.js",
+            "core": true,
+            "selectedVariables": 0,
+            "testVariables": [
+                {
+                    "name": "Default",
+                    "variables": [
+                        {
+                            "name": "baseUrl",
+                            "value": "http://localhost/otcs/cs.exe"
+                        },
+                        {
+                            "name": "username",
+                            "value": "admin"
+                        },
+                        {
+                            "name": "password",
+                            "value": "livelink"
+                        },
+                        {
+                            "name": "searchTerm",
+                            "value": "OpenText"
+                        },
+                        {
+                            "name": "testFolderId",
+                            "value": "2000"
+                        },
+                        {
+                            "name": "testFilePath",
+                            "value": "C://testfile.txt"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "CS 16 Basics Check",
+            "fileName": "cs-basic-16.spec.js",
+            "core": true,
+            "selectedVariables": 0,
+            "testVariables": [
+                {
+                    "name": "Default",
+                    "variables": [
+                        {
+                            "name": "baseUrl",
+                            "value": "http://localhost/otcs/cs.exe"
+                        },
+                        {
+                            "name": "username",
+                            "value": "admin"
+                        },
+                        {
+                            "name": "password",
+                            "value": "livelink"
+                        },
+                        {
+                            "name": "searchTerm",
+                            "value": "OpenText"
+                        },
+                        {
+                            "name": "testFolderId",
+                            "value": "2000"
+                        },
+                        {
+                            "name": "testFilePath",
+                            "value": "C:\\testfile.txt"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Google",
+            "fileName": "google.spec.js",
+            "core": true
+        }
+    ]
+}

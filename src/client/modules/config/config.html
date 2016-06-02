@@ -1,0 +1,223 @@
+<md-dialog class="stp-settings" aria-label="Settings" ng-cloak>
+    <form>
+        <md-toolbar class="stp-main-toolbar">
+            <div class="md-toolbar-tools">
+                <h2>Settings</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" aria-label="Help">
+                    <md-icon md-svg-icon="img/help.svg" ng-click="app.showHelp($event)"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button stp-main-toolbar" ng-click="app.closeDialog(false)" aria-label="Close dialog">
+                    <md-icon md-svg-src="img/clear.svg"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-tabs md-dynamic-height md-border-bottom style="height:100%;">
+                <md-tab label="Test runner">
+                    <md-container layout-padding>
+                        <div class="stp-settings-tab-content">
+                            <md-subheader class="md-primary">Options</md-subheader>
+                            <div>
+                                <md-input-container>
+                                    <label>Timeout (milliseconds)</label>
+                                    <input type="number" ng-model="app.config.runner.timeout" required>
+                                </md-input-container>
+                            </div>
+                            <md-subheader class="md-primary">Browsers</md-subheader>
+                            <div>
+                                <md-input-container>
+                                    <div ng-repeat="browser in app.config.runner.browsers track by browser.name">
+                                        <md-checkbox ng-model="browser.selected">
+                                            {{ browser.name }}
+                                        </md-checkbox>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                            <div ng-if="app.config.runner.browsers[2].selected">
+                                <p> stamp uses the Selenium Webdriver protocol to control each browser. Internet Explorer requires
+                                    more configuration than other browsers. For more information please check
+                                    <a href="#" ng-click="app.showIEConfig()">here</a>. IEDriverServer.exe is not required
+                                    as stamp has it's own copy. All other points need to be examined on each machine performing
+                                    testing with Internet Explorer.</p>
+                                <p>The following options are provided in case group policy restrictions prevent you making some
+                                    of the required configuration changes. Using these settings should be avoided as they
+                                    introduce possible errors for Internet Explorer using the Selenium Webdriver protocol.
+                                </p>
+                                <md-checkbox ng-model="app.config.runner.browsers[2].capabilities.ignoreZoomSetting">
+                                    Ignore Zoom Setting
+                                </md-checkbox><br>
+                                <md-checkbox ng-model="app.config.runner.browsers[2].capabilities.introduceFlakinessByIgnoringProtectedModeSettings">
+                                    Ignore Protected Mode Requirement
+                                </md-checkbox>
+                            </div>
+                        </div>
+                    </md-container>
+                </md-tab>
+                <md-tab label="Logging">
+                    <md-container layout-padding>
+                        <div class="stp-settings-tab-content">
+                            <div>
+                                <md-input-container class="stp-test-select">
+                                    <md-checkbox ng-model="app.config.logging.file" aria-label="Logging enabled"> Logging enabled </md-checkbox>
+                                </md-input-container>
+                            </div>
+                            <md-input-container class="stp-test-select">
+                                <label>Log level</label>
+                                <md-select md-selected-text="level.name" ng-model="app.config.logging.level" ng-disabled="app.config.logging.file === false">
+                                    <md-option ng-value="level.value" ng-repeat="level in app.config.logging.levels track by level.value">
+                                        <span ng-bind="level.name"></span>
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-button class="md-raised" ng-click="app.openLogs()">
+                                Open Logs Folder
+                            </md-button>
+                        </div>
+                    </md-container>
+                </md-tab>
+                <md-tab label="Tests">
+                    <md-container layout-padding>
+                        <div class="stp-settings-tab-content">
+                            <md-tabs md-dynamic-height md-border-bottom style="height:100%;">
+                                <md-tab label="Delete test">
+                                    <div class="stp-settings-tab-content stp-settings-spacer">
+                                        <div layout="row">
+                                            <md-input-container class="stp-test-select">
+                                                <label>Choose your test</label>
+                                                <md-select ng-model="app.testToDelete">
+                                                    <md-option ng-value="test.name" ng-repeat="test in app.userTests track by test.name">
+                                                        <span ng-bind="test.name"></span>
+                                                    </md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                            <span flex></span>
+                                            <md-button class="md-raised md-warn" ng-click="app.deleteTest()" ng-disabled="!app.testToDelete">
+                                                Delete
+                                            </md-button>
+                                        </div>
+                                    </div>
+                                </md-tab>
+                                <md-tab label="Update test">
+                                    <div class="stp-settings-tab-content stp-settings-spacer">
+                                        <div layout="row">
+                                            <md-input-container class="stp-test-select">
+                                                <label>Choose your test</label>
+                                                <md-select ng-model="app.testToUpdate">
+                                                    <md-option ng-value="test.name" ng-repeat="test in app.config.tests track by test.name">
+                                                        <span ng-bind="test.name"></span>
+                                                    </md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                        </div>
+                                        <div layout="row">
+                                            <md-input-container flex>
+                                                <label>Test file</label>
+                                                <input ng-model="app.testPath">
+                                            </md-input-container>
+                                            <div>
+                                                <md-button class="md-raised" ng-click="app.getPath('test')">
+                                                    Choose Test
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div layout="row">
+                                            <md-input-container flex>
+                                                <label>Test configuration</label>
+                                                <input ng-model="app.configPath">
+                                            </md-input-container>
+                                            <div>
+                                                <md-button class="md-raised" ng-click="app.getPath('config')">
+                                                    Choose Config
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <p ng-if="app.configPath">Adding a new test configuration file will overwrite all current environment variables,
+                                            including any you have created.
+                                        </p>
+                                        <div layout="row">
+                                            <span flex></span>
+                                            <md-button class="md-raised md-accent" ng-click="app.updateTest()" ng-disabled="!app.testToUpdate">
+                                                Update
+                                            </md-button>
+                                        </div>
+                                    </div>
+                                </md-tab>
+                                <md-tab label="New test">
+                                    <div class="stp-settings-tab-content stp-settings-spacer">
+                                        <div layout="row">
+                                            <md-input-container flex>
+                                                <label>Test file</label>
+                                                <input ng-model="app.testPath">
+                                            </md-input-container>
+                                            <div>
+                                                <md-button class="md-raised" ng-click="app.getPath('test')">
+                                                    Choose Test
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div layout="row">
+                                            <md-input-container flex>
+                                                <label>Test configuration</label>
+                                                <input ng-model="app.configPath">
+                                            </md-input-container>
+                                            <div>
+                                                <md-button class="md-raised" ng-click="app.getPath('config')">
+                                                    Choose Config
+                                                </md-button>
+                                            </div>
+                                        </div>
+                                        <div layout="row">
+                                            <span flex></span>
+                                            <md-button class="md-raised md-accent" ng-click="app.addTest()" ng-disabled="!app.testPath">
+                                                Create
+                                            </md-button>
+                                        </div>
+                                    </div>
+                                </md-tab>
+                                <md-tab label="Export Config">
+                                    <div class="stp-settings-tab-content stp-settings-spacer">
+                                        <div layout="row">
+                                            <md-input-container class="stp-test-select">
+                                                <label>Choose your test</label>
+                                                <md-select ng-model="app.testToExport">
+                                                    <md-option ng-value="test.name" ng-repeat="test in app.config.tests track by test.name">
+                                                        <span ng-bind="test.name"></span>
+                                                    </md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                            <span flex></span>
+                                            <md-button class="md-raised md-accent" ng-click="app.exportConfig()" ng-disabled="!app.testToExport">
+                                                Export
+                                            </md-button>
+                                        </div>
+                                    </div>
+                                </md-tab>
+                            </md-tabs>
+                        </div>
+                    </md-container>
+                </md-tab>
+                <md-tab label="Reset">
+                    <md-container layout-padding>
+                        <div class="stp-settings-tab-content">
+                            <p>This will reset the configuration to the application defaults. Clicking this will remove any
+                                test variables or tests that you may have configured</p>
+                            <md-button class="md-raised md-warn" ng-click="app.resetConfig()">
+                                Reset
+                            </md-button>
+                        </div>
+                    </md-container>
+                </md-tab>
+            </md-tabs>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button class="md-raised md-primary" ng-click="app.closeDialog(true)">
+                Save
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="app.closeDialog(false)">
+                Cancel
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

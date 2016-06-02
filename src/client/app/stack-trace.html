@@ -1,0 +1,22 @@
+<md-dialog class="stp-stack-trace" aria-label="Stack trace" ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Stack trace</h2>
+            <span flex></span>
+            <!--md-button class="md-icon-button stp-main-toolbar" aria-label="Copy stack trace">
+                <md-tooltip md-direction="bottom">
+                    Copy stack trace
+                </md-tooltip>
+                <md-icon md-svg-src="img/copy.svg"></md-icon>
+            </md-button-->
+            <md-button class="md-icon-button stp-main-toolbar" ng-click="app.closeDialog()" aria-label="Close dialog">
+                <md-icon md-svg-src="img/clear.svg"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <md-content flex="100" layout-padding>
+            <md-content class="stp-stack-trace-detail md-caption" ng-bind="app.stack"></md-content>
+        </md-content>
+    </md-dialog-content>
+</md-dialog>

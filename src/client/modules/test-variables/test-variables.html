@@ -1,0 +1,94 @@
+<md-dialog class="stp-settings" aria-label="Settings" ng-cloak>
+    <form>
+        <md-toolbar class="stp-main-toolbar">
+            <div class="md-toolbar-tools">
+                <h2>{{ app.config.tests[app.selectedTest].name }} Test Variables</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" aria-label="Help">
+                    <md-icon md-svg-icon="img/help.svg" ng-click="app.showHelp($event)"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button stp-main-toolbar" ng-click="app.closeDialog(false)" aria-label="Close dialog">
+                    <md-icon md-svg-src="img/clear.svg"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-container layout-padding>
+                <md-tabs md-dynamic-height md-border-bottom md-autoselect md-selected="app.config.tests[app.selectedTest].selectedVariables" style="height:100%;">
+                    <md-tab ng-repeat="environment in app.config.tests[app.selectedTest].testVariables track by environment.name" ng-init="environmentIndex = $index"
+                        label="{{ environment.name }}">
+                        <md-container layout-padding>
+                            <div ng-repeat="variable in environment.variables track by variable.name" layout="row">
+                                <md-input-container flex layout-fill>
+                                    <label>{{ variable.name }}</label>
+                                    <input ng-model="environment.variables[$index].value">
+                                </md-input-container>
+                            </div>
+                            <div class="stp-input-panel" ng-if="app.newEnvironmentShow">
+                                <div layout="row">
+                                    <md-input-container flex layout-fill>
+                                        <label>New environment name</label>
+                                        <input ng-model="app.newEnvironment">
+                                    </md-input-container>
+                                    <md-button class="md-raised" ng-click="app.environmentUpdate(true, environmentIndex)">
+                                        OK
+                                    </md-button>
+                                    <md-button class="md-raised md-warn" ng-click="app.environmentUpdate(false)">
+                                        Cancel
+                                    </md-button>
+                                </div>
+                            </div>
+                            <div layout="row">
+                                <span flex></span>
+                                <md-button class="md-raised" ng-click="app.renameEnvironment()">
+                                    Rename
+                                </md-button>
+                                <md-button class="md-raised" ng-click="app.saveAsEnvironment()">
+                                    Save As
+                                </md-button>
+                                <md-button class="md-raised md-warn" ng-click="app.deleteEnvironment(environmentIndex)">
+                                    Delete Environment
+                                </md-button>
+                            </div>
+                        </md-container>
+                    </md-tab>
+                    <md-tab label="New">
+                        <md-container layout-padding>
+                            <div layout="row">
+                                <md-input-container class="stp-test-select" layout-fill>
+                                    <label>Values to copy</label>
+                                    <md-select ng-model="app.oldEnvironment">
+                                        <md-option value="{{ $index }}" ng-repeat="env in app.config.tests[app.selectedTest].testVariables track by env.name">
+                                            <span ng-bind="env.name"></span>
+                                        </md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                            <div layout="row">
+                                <md-input-container flex>
+                                    <label>New environment name</label>
+                                    <input ng-model="app.newEnvironment">
+                                </md-input-container>
+                            </div>
+                            <div layout="row">
+                                <span flex></span>
+                                <md-button class="md-raised md-accent" ng-click="app.createEnvironment()">
+                                    Create Environment
+                                </md-button>
+                            </div>
+                        </md-container>
+                    </md-tab>
+                </md-tabs>
+            </md-container>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-padding>
+            <span flex></span>
+            <md-button class="md-raised md-primary" ng-click="app.closeDialog(true)">
+                Save
+            </md-button>
+            <md-button class="md-raised md-warn" ng-click="app.closeDialog(false)">
+                Cancel
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

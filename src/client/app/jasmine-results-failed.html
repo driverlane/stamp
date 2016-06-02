@@ -1,0 +1,16 @@
+<md-list-item class="md-2-line">
+    <md-icon md-svg-src="img/test-fail.svg" class="stp-result-fail" aria-label="Failed"></md-icon>
+    <div class="md-list-item-text" layout="column">
+        <p class="md-body-1"><strong>{{ fe.suiteDescription }}</strong> It {{ fe.description }}</p>
+        <p class="md-body-1">{{ fe.failedExpectations[0].message }}</p>
+    </div>
+    <div class="stp-result-buttons">
+        <md-button class="md-icon-button" aria-label="Show stack trace" ng-click="app.showStackTrace($event, fe.failedExpectations[0].stack)">
+            <md-tooltip md-direction="bottom">
+                Show stack trace
+            </md-tooltip>
+            <md-icon md-svg-icon="img/details.svg"></md-icon>
+        </md-button>
+    </div>
+    <md-divider></md-divider>
+</md-list-item>
