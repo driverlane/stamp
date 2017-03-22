@@ -68,6 +68,12 @@ around the application. If you want to supply other values, use:
 helper.checkCSAuthentication(browser, username, password);
 ```
 
+## Check existence
+
+You can use the following to test if an element is on the page. Just supply the browser and selector and it will return true if present, false if not.
+
+* helper.idIsPresent(browser, id)
+
 
 ## Timeouts
 

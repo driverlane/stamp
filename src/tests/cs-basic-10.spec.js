@@ -1,12 +1,12 @@
 /*  --------------------------------------------------------------------------------
     Version history
     --------------------------------------------------------------------------------
-    0.0.1 - initial version April 2016 Mark Farrall
+    0.0.1 - initial version February 2016 Mark Farrall
     --------------------------------------------------------------------------------  */
 
 var selenium = require('selenium-webdriver');
-var By = selenium.By;
-var until = selenium.until;
+var By = require('selenium-webdriver').By;
+var until = require('selenium-webdriver').until;
 var helper = require('stamp-helper');
 
 // global test variables
@@ -17,7 +17,7 @@ helper.testInfo = {};
 // the test suite
 /* ---------------------------------------------------------------------------------------- */
 
-describe('Content Server 16 basics', function () {
+describe('Content Server 10.5 basics', function () {
 
     beforeEach(function () {
         browser = helper.initBrowser();
@@ -27,7 +27,7 @@ describe('Content Server 16 basics', function () {
         browser.quit().then(done);
     });
 
-    it('should be CS 16', function (done) {
+    it('should be CS 10.5', function (done) {
 
         var aboutUrl = testVariables.baseUrl + '?func=ll.index';
         browser.get(aboutUrl);
@@ -39,7 +39,7 @@ describe('Content Server 16 basics', function () {
         var element = browser.findElement(By.className('copyright'));
         element.getText().then(function (text) {
             helper.testInfo.csVersion = text.substring(text.indexOf('version') + 8, text.indexOf('Copyright') - 2);
-            expect(text).toContain('Content Server version 16');
+            expect(text).toContain('Content Server version 10.0');
             done();
         });
 
@@ -54,7 +54,6 @@ describe('Content Server 16 basics', function () {
         // wait for redirect (for drivers that don't handle this implicitly - I'm looking at you IE)
         browser.wait(until.elementLocated(By.className('pageTitleIcon')), 30000);
 
-        // run the test
         var element = browser.findElement(By.className('pageTitleIcon'));
         element = element.findElement(By.tagName('img'));
         element.getAttribute('title').then(function (att) {
@@ -89,6 +88,9 @@ describe('Content Server 16 basics', function () {
             browser.findElement(By.id('FinishButton')).click();
         }
 
+        // wait for redirect (for drivers that don't handle this implicitly - I'm looking at you IE)
+        browser.wait(until.elementLocated(By.xpath(docXpath)), 30000);
+
         // see if we've got the new document
         browser.findElements(By.xpath(docXpath)).then(function (elements) {
             expect(elements.length).toEqual(1);
@@ -111,7 +113,7 @@ describe('Content Server 16 basics', function () {
         browser.findElement(By.name('Delete')).click();
         browser.findElement(By.id('deleteButton')).click();
         browser.findElement(By.id('okButton')).click();
-
+        
         browser.findElements(By.xpath(docXpath)).then(function (elements) {
             expect(elements.length).toEqual(0);
             done();
@@ -129,7 +131,7 @@ describe('Content Server 16 basics', function () {
 
         browser.findElement(By.id('fulltextwhere1')).sendKeys(testVariables.searchTerm);
         browser.findElement(By.id('fulltextsubmitButton')).click();
-        browser.wait(until.titleIs('Content Server - Result Page'), 30000);
+        browser.wait(until.titleIs('Content Server - Result Page'), 30000);        
         expect(browser.findElement(By.className('countAndButtonComponentLeft')).getInnerHtml()).not.toContain('No results found');
 
     });
@@ -154,3 +156,4 @@ describe('Content Server 16 basics', function () {
     });
 
 });
+

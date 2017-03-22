@@ -110,6 +110,27 @@ module.exports.checkCSAuthentication = function (browser, username, password) {
 
 };
 
+// checks if an element with the ID is on the page and returns a boolean
+module.exports.idIsPresent = (browser, id) => {
+
+    logger.debug('Checking if element is present by ID', logfile);
+    try {
+        if (browser.findElements(By.id(id)).length > 0) {
+            logger.debug('Element is present', logfile);
+            return true;
+        }
+        else {
+            logger.debug('Element is not present', logfile);
+            return false;
+        }
+    }
+    catch (err) {
+        logger.debug('Element is not present', logfile);
+        return false;
+    }
+
+};
+
 // adds a (hopefully) unique string to any supplied string
 module.exports.generateUniqueName = (name) => {
     return name.trim() + ' ' + (new Date()).toLocaleString().replace(/[^a-zA-Z0-9.-]/g, '_');
@@ -124,6 +145,12 @@ module.exports.webdriverError = () => {
 module.exports.resetWebdriverError = () => {
     helper.webdriverError = null;
 };
+
+// pass through to the logger functions
+module.exports.debug = logger.debug;
+module.exports.info = logger.info;
+module.exports.warn = logger.warn;
+module.exports.error = logger.error;
 
 /* --------------------------------------------- */
 /* --------      private functions      -------- */

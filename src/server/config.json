@@ -87,6 +87,43 @@
     },
     "tests": [
         {
+            "name": "CS 10 Basics Check",
+            "fileName": "cs-basic-10.spec.js",
+            "core": true,
+            "selectedVariables": 0,
+            "testVariables": [
+                {
+                    "name": "Default",
+                    "variables": [
+                        {
+                            "name": "baseUrl",
+                            "value": "http://localhost/otcs/cs.exe"
+                        },
+                        {
+                            "name": "username",
+                            "value": "admin"
+                        },
+                        {
+                            "name": "password",
+                            "value": "livelink"
+                        },
+                        {
+                            "name": "searchTerm",
+                            "value": "OpenText"
+                        },
+                        {
+                            "name": "testFolderId",
+                            "value": "2000"
+                        },
+                        {
+                            "name": "testFilePath",
+                            "value": "C://testfile.txt"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "name": "CS 10.5 Basics Check",
             "fileName": "cs-basic-10.5.spec.js",
             "core": true,

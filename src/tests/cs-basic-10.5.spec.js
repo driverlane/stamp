@@ -78,8 +78,16 @@ describe('Content Server 10.5 basics', function () {
         browser.findElement(By.id('versionFile')).sendKeys(testVariables.testFilePath);
         browser.findElement(By.id('name')).clear();
         browser.findElement(By.id('name')).sendKeys(docName);
-        browser.findElement(By.id('addButton')).click();
-            
+
+        if (browser.findElements(By.id('addButton')).length > 0) {
+            helper.debug('Found the add button, using a standard document add page.');
+            browser.findElement(By.id('addButton')).click();
+        }
+        else {
+            helper.debug('Found the finish button, using a document wizard page.');
+            browser.findElement(By.id('FinishButton')).click();
+        }
+
         // wait for redirect (for drivers that don't handle this implicitly - I'm looking at you IE)
         browser.wait(until.elementLocated(By.xpath(docXpath)), 30000);
 
@@ -114,8 +122,8 @@ describe('Content Server 10.5 basics', function () {
 
     it('should return search results', function () {
 
-        var entepriseUrl = testVariables.baseUrl + '?func=llworkspace';
-        browser.get(entepriseUrl);
+        var folderUrl = testVariables.baseUrl + '/open/' + testVariables.testFolderId;
+        browser.get(folderUrl);
         helper.checkCSAuthentication(browser);
 
         // wait for redirect (for drivers that don't handle this implicitly - I'm looking at you IE)
